@@ -22,8 +22,6 @@ router.post(
   Login
 );
 
-// Protected routes
-//verify token is working fine but somtimes it doesnt work properly
 router.get("/", async (req, res) => {
   const data1 = await getData();
   res.json({ data: data1 });
