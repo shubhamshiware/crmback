@@ -9,4 +9,5 @@ const meetingSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model("meeting", meetingSchema);
-//this is unused schema meant for updating about meatings and schedules .
+
+//unused schema

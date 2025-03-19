@@ -31,7 +31,6 @@ router.get("/clients", async (req, res) => {
 });
 
 router.delete("/delete", async (req, res) => {
-  // console.log("Request body:", req.body);
   try {
     const { id } = req.body;
     if (!id) {
@@ -49,7 +48,6 @@ router.delete("/delete", async (req, res) => {
 });
 
 router.put("/edit", async (req, res) => {
-  // console.log(req.body, "clients");
   try {
     const result = await clientRepository.editData(req.body);
 
@@ -80,7 +78,6 @@ router.put("/edit", async (req, res) => {
 });
 
 router.put("/edit", async (req, res) => {
-  // console.log(req.body, "clients");
   try {
     const result = await clientRepository.editData(req.body);
 
@@ -111,8 +108,6 @@ router.put("/edit", async (req, res) => {
 });
 
 router.put("/:id/leads", async (req, res) => {
-  // console.log(req.body, "clients");
-
   try {
     const { leadsgenerated, followers, views } = req.body;
 
@@ -188,7 +183,6 @@ router.put("/:id/update-status", async (req, res) => {
       // Update the task status
       client.videos[itemIndex].isCompleted = isCompleted;
 
-      // Attempt to save the client data
       const updatedClient = await client.save();
       if (!updatedClient) {
         return res.status(500).json({
@@ -197,7 +191,6 @@ router.put("/:id/update-status", async (req, res) => {
         });
       }
 
-      // Send success response
       return res.json({
         success: true,
         message: "Video status updated successfully.",
@@ -287,7 +280,6 @@ router.put("/:id/update-package", async (req, res) => {
 });
 
 router.get("/:id", async (req, res) => {
-  // console.log("param", req.body);
   try {
     const { id } = req.params;
     const client = await clientRepository.getDataById(id);

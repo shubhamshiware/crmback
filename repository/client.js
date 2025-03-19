@@ -18,19 +18,6 @@ const deleteData = (id) => {
   return clientSchema.deleteOne({ _id: id });
 };
 
-// const editData = async (Data) => {
-//   const { id, ...updateFields } = Data;
-
-//   // Convert the string `id` to an ObjectId using `new`
-//   const objectId = new ObjectId(id);
-
-//   // Use Mongoose's `clientSchema` to update the record
-//   return await clientSchema.updateOne(
-//     { _id: objectId }, // Match the document by ObjectId
-//     { $set: updateFields } // Update the specified fields
-//   );
-// };
-
 // Update a document by ID
 const editData = async (Data) => {
   try {

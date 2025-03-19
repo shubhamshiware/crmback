@@ -6,8 +6,6 @@ const jwt = require("jsonwebtoken");
 const saltRounds = 10;
 
 const Signup = (req, res) => {
-  console.log("Signup request:", req.body);
-
   // Ensure required fields are provided
   const { name, email, username, password, about, role } = req.body;
   if (!username || !password) {
@@ -49,7 +47,7 @@ const Signup = (req, res) => {
 
 const Login = (req, res) => {
   const { username, password } = req.body;
-  console.log(req.body, "login");
+
   if (!username || !password) {
     return res.status(400).json({
       message: "Failed",
@@ -61,7 +59,6 @@ const Login = (req, res) => {
   getDataByUserName(username)
     .then((result) => {
       if (result) {
-        // Compare the provided password with the hashed password in the database
         bcrypt.compare(password, result.password, (err, isMatch) => {
           if (err || !isMatch) {
             return res.status(401).json({
@@ -71,14 +68,12 @@ const Login = (req, res) => {
             });
           }
 
-          // Generate JWT token with user details, including role
           const token = jwt.sign(
             { username: result.username, id: result.id, role: result.role },
             "mysecretkey",
             { expiresIn: "2h" }
           );
 
-          // Determine redirection based on role
           let redirectPage;
           switch (result.role) {
             case "admin":

@@ -10,14 +10,14 @@ const usersSchema = new Schema({
   },
   email: {
     type: String,
-    unique: true, // Ensure no duplicate emails
-    required: true, // Ensure email is provided
+    unique: true,
+    required: true,
     trim: true,
-    lowercase: true, // Store email in lowercase
+    lowercase: true,
   },
   about: {
     type: String,
-    default: "", // Optional field for user bio
+    default: "",
     trim: true,
   },
   username: {
@@ -28,7 +28,7 @@ const usersSchema = new Schema({
   },
   password: {
     type: String,
-    required: true, // Ensure password is provided
+    required: true,
   },
   role: {
     type: String,
@@ -41,7 +41,6 @@ const usersSchema = new Schema({
   },
 });
 
-// Create the model from the schema
 const userModel = mongoose.model("user", usersSchema);
 
 module.exports = userModel;

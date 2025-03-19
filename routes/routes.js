@@ -1,5 +1,5 @@
 const express = require("express");
-const { verifytoken } = require("../middleware/midd");
+// const { verifytoken } = require("../middleware/midd");
 const mongoose = require("mongoose");
 const router = express.Router();
 const { roleCheck } = require("../middleware/middone");
@@ -83,3 +83,5 @@ router.get("/user/:id", async (req, res) => {
 });
 
 module.exports = router;
+
+//veryfy middlewere works bit late that neds to be improved fro production

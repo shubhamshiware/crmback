@@ -4,9 +4,8 @@ const contentRout = require("../repository/content");
 const repo = require("../model/content");
 
 router.post("/content", async (req, res) => {
-  // console.log(req.body, "updates");
   try {
-    const { userId, update } = req.body; // Get userId from request
+    const { userId, update } = req.body;
     if (!userId)
       return res.status(400).json({ message: "User ID is required" });
 
@@ -30,8 +29,6 @@ router.get("/", async (req, res) => {
 });
 
 router.put("/edit", async (req, res) => {
-  // console.log(" Received Payload:", req.body);
-
   try {
     const { _id, update, completed } = req.body;
 
