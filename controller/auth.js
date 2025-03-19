@@ -49,7 +49,7 @@ const Signup = (req, res) => {
 
 const Login = (req, res) => {
   const { username, password } = req.body;
-
+  console.log(req.body, "login");
   if (!username || !password) {
     return res.status(400).json({
       message: "Failed",
@@ -116,5 +116,3 @@ const Login = (req, res) => {
 };
 
 module.exports = { Signup, Login };
-
-//we have :/id as an param we can use it to fetch data of perticuler user

@@ -16,7 +16,11 @@ const userRepository = require("../repository/repo");
 
 // Public routes
 router.post("/signup", encryptPassword, Signup);
-router.post("/login", Login);
+router.post(
+  "/login",
+
+  Login
+);
 
 // Protected routes
 //verify token is working fine but somtimes it doesnt work properly
