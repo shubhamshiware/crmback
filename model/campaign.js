@@ -10,4 +10,5 @@ const campaignSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model("campaign", campaignSchema);
-//this one is tottaly unused schema and we can use in calender
+
+//unused schema made for

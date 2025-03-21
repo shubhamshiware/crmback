@@ -12,6 +12,7 @@ const { Schema } = mongoose;
 
 // Route to save a client
 router.post("/clients", async (req, res) => {
+  console.log(req.body, "client post");
   try {
     const result = await clientRepository.saveData(req.body);
     res.status(201).json({ success: true, data: result });
@@ -22,6 +23,7 @@ router.post("/clients", async (req, res) => {
 
 // Route to get all clients
 router.get("/clients", async (req, res) => {
+  console.log(req.body, "client get");
   try {
     const clients = await clientRepository.getData();
     res.status(200).json({ success: true, data: clients });
@@ -31,6 +33,7 @@ router.get("/clients", async (req, res) => {
 });
 
 router.delete("/delete", async (req, res) => {
+  console.log(req.body, "client delete");
   try {
     const { id } = req.body;
     if (!id) {
@@ -48,6 +51,7 @@ router.delete("/delete", async (req, res) => {
 });
 
 router.put("/edit", async (req, res) => {
+  console.log(req.body, "client put");
   try {
     const result = await clientRepository.editData(req.body);
 
@@ -78,6 +82,7 @@ router.put("/edit", async (req, res) => {
 });
 
 router.put("/edit", async (req, res) => {
+  console.log(req.body, "husshsh");
   try {
     const result = await clientRepository.editData(req.body);
 
@@ -150,8 +155,6 @@ router.put("/:id/leads", async (req, res) => {
 router.put("/:id/update-status", async (req, res) => {
   const { id } = req.params;
   const { itemIndex, isCompleted, type } = req.body; // Data from the request body
-
-  console.log("Incoming request body:", req.body);
 
   // Validate ID format
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -252,7 +255,6 @@ router.put("/:id/update-status", async (req, res) => {
 });
 
 router.put("/:id/update-package", async (req, res) => {
-  console.log(req.body, "update status");
   try {
     const { newAmount } = req.body;
     if (newAmount < 0) {

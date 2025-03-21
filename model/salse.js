@@ -24,3 +24,4 @@ const salseSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model("Salse", salseSchema);
+//salse schema used for

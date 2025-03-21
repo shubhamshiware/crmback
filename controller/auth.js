@@ -7,7 +7,9 @@ const saltRounds = 10;
 
 const Signup = (req, res) => {
   // Ensure required fields are provided
+  console.log(req.body, "testing");
   const { name, email, username, password, about, role } = req.body;
+  console.log(req.body, "testing");
   if (!username || !password) {
     return res.status(400).json({
       message: "Failed",
@@ -46,6 +48,7 @@ const Signup = (req, res) => {
 };
 
 const Login = (req, res) => {
+  console.log(req.body, "login");
   const { username, password } = req.body;
 
   if (!username || !password) {
