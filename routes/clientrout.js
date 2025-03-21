@@ -12,7 +12,7 @@ const { Schema } = mongoose;
 
 // Route to save a client
 router.post("/clients", async (req, res) => {
-  console.log(req.body, "client post");
+  console.log(req.body, "testing ");
   try {
     const result = await clientRepository.saveData(req.body);
     res.status(201).json({ success: true, data: result });
@@ -23,7 +23,6 @@ router.post("/clients", async (req, res) => {
 
 // Route to get all clients
 router.get("/clients", async (req, res) => {
-  console.log(req.body, "client get");
   try {
     const clients = await clientRepository.getData();
     res.status(200).json({ success: true, data: clients });
@@ -33,7 +32,6 @@ router.get("/clients", async (req, res) => {
 });
 
 router.delete("/delete", async (req, res) => {
-  console.log(req.body, "client delete");
   try {
     const { id } = req.body;
     if (!id) {
@@ -51,7 +49,6 @@ router.delete("/delete", async (req, res) => {
 });
 
 router.put("/edit", async (req, res) => {
-  console.log(req.body, "client put");
   try {
     const result = await clientRepository.editData(req.body);
 
@@ -113,6 +110,7 @@ router.put("/edit", async (req, res) => {
 });
 
 router.put("/:id/leads", async (req, res) => {
+  console.log(req.body, "leads");
   try {
     const { leadsgenerated, followers, views } = req.body;
 
