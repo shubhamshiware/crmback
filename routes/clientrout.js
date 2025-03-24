@@ -296,14 +296,13 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.post("/:id/upload", upload.single("image"), async (req, res) => {
-  console.log(req.body, "Request Body"); // Should now contain userId
+router.post("/client/:id/upload", upload.single("image"), async (req, res) => {
+  console.log(req.body, "Request Body");
   console.log(req.file, "Uploaded File");
 
   try {
-    const { id } = req.params; // Get ID from params
-    const userId = req.body.userId || id; // Get userId from body or params
-    const imageUrl = req.file?.path; // Ensure image was uploaded
+    const { id } = req.params; // Get user ID from params
+    const imageUrl = req.file?.path; // Ensure image URL exists
 
     if (!imageUrl) {
       return res
@@ -312,9 +311,9 @@ router.post("/:id/upload", upload.single("image"), async (req, res) => {
     }
 
     const updatedUser = await clientSchema.findByIdAndUpdate(
-      userId,
-      { profileImage: imageUrl },
-      { new: true }
+      id,
+      { profileImage: imageUrl }, // Update profile image
+      { new: true, upsert: true } // Ensure it updates or inserts if missing
     );
 
     if (!updatedUser) {
@@ -323,9 +322,11 @@ router.post("/:id/upload", upload.single("image"), async (req, res) => {
         .json({ success: false, message: "User not found" });
     }
 
+    console.log(updatedUser, "Updated User Data"); // Debugging
+
     res.status(200).json({
       success: true,
-      message: "Profile image updated!",
+      message: "Profile image updated successfully!",
       user: updatedUser,
     });
   } catch (error) {
