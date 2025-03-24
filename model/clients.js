@@ -10,6 +10,7 @@ const clientSchema = new mongoose.Schema({
   leadsgenerated: { type: Number },
   followers: { type: Number },
   views: { type: Number },
+  profileImage: { type: String, default: "" },
   videos: [
     {
       videoNumber: { type: Number },

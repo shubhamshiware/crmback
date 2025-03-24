@@ -5,7 +5,7 @@ const { verifytoken } = require("../middleware/midd");
 const { editData, deleteData, getDataById } = require("../repository/client");
 const clientRepository = require("../repository/client");
 const clientSchema = require("../model/clients");
-
+const upload = require("../controller/multer");
 const mongoose = require("mongoose");
 
 const { Schema } = mongoose;
@@ -79,7 +79,6 @@ router.put("/edit", async (req, res) => {
 });
 
 router.put("/edit", async (req, res) => {
-  console.log(req.body, "husshsh");
   try {
     const result = await clientRepository.editData(req.body);
 
@@ -253,6 +252,7 @@ router.put("/:id/update-status", async (req, res) => {
 });
 
 router.put("/:id/update-package", async (req, res) => {
+  console.log(req.body, "testing request ");
   try {
     const { newAmount } = req.body;
     if (newAmount < 0) {
@@ -293,6 +293,30 @@ router.get("/:id", async (req, res) => {
     res.status(200).json({ success: true, data: client });
   } catch (error) {
     res.status(400).json({ success: false, message: error.message });
+  }
+});
+
+router.post("/upload", upload.single("image"), async (req, res) => {
+  console.log(req.body, "bodyy");
+  try {
+    const { userId } = req.body;
+    const imageUrl = req.file.path; // Cloudinary URL
+
+    // Update user profile in the database
+    const updatedUser = await clientSchema.findByIdAndUpdate(
+      userId,
+      { profileImage: imageUrl },
+      { new: true }
+    );
+
+    res.status(200).json({
+      success: true,
+      message: "Profile image updated!",
+      user: updatedUser,
+    });
+  } catch (error) {
+    console.error("Error uploading image:", error);
+    res.status(500).json({ success: false, message: "Failed to upload image" });
   }
 });
 
