@@ -297,12 +297,14 @@ router.get("/:id", async (req, res) => {
 });
 
 router.post("/:id/upload", upload.single("image"), async (req, res) => {
-  console.log(req.body, "Request Body");
+  console.log(req.body, "Request Body"); // Should now contain userId
   console.log(req.file, "Uploaded File");
 
   try {
-    const { id } = req.params;
-    const imageUrl = req.file?.path; // Ensure image is uploaded
+    const { id } = req.params; // Get ID from params
+    const userId = req.body.userId || id; // Get userId from body or params
+    const imageUrl = req.file?.path; // Ensure image was uploaded
+
     if (!imageUrl) {
       return res
         .status(400)
@@ -310,7 +312,7 @@ router.post("/:id/upload", upload.single("image"), async (req, res) => {
     }
 
     const updatedUser = await clientSchema.findByIdAndUpdate(
-      id,
+      userId,
       { profileImage: imageUrl },
       { new: true }
     );
