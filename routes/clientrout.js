@@ -5,7 +5,9 @@ const { verifytoken } = require("../middleware/midd");
 const { editData, deleteData, getDataById } = require("../repository/client");
 const clientRepository = require("../repository/client");
 const clientSchema = require("../model/clients");
-const upload = require("../controller/multer");
+const multer = require("multer");
+const upload = multer({ dest: "uploads/" }); // Ensure Cloudinary setup is correct
+
 const mongoose = require("mongoose");
 
 const { Schema } = mongoose;
@@ -296,42 +298,31 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.post("/client/:id/upload", upload.single("image"), async (req, res) => {
-  console.log(req.body, "Request Body");
-  console.log(req.file, "Uploaded File");
-
+router.post("/:id/upload", upload.single("image"), async (req, res) => {
   try {
-    const { id } = req.params; // Get user ID from params
-    const imageUrl = req.file?.path; // Ensure image URL exists
+    console.log(req.body, "Request Body");
+    console.log(req.file, "Uploaded File");
 
-    if (!imageUrl) {
-      return res
-        .status(400)
-        .json({ success: false, message: "No image uploaded!" });
-    }
+    const { userId } = req.body;
+    if (!req.file) return res.status(400).json({ message: "No file uploaded" });
 
+    const imageUrl = req.file.path; // Cloudinary URL
+
+    // Update user profile
     const updatedUser = await clientSchema.findByIdAndUpdate(
-      id,
-      { profileImage: imageUrl }, // Update profile image
-      { new: true, upsert: true } // Ensure it updates or inserts if missing
+      userId,
+      { profileImage: imageUrl },
+      { new: true }
     );
-
-    if (!updatedUser) {
-      return res
-        .status(404)
-        .json({ success: false, message: "User not found" });
-    }
-
-    console.log(updatedUser, "Updated User Data"); // Debugging
 
     res.status(200).json({
       success: true,
-      message: "Profile image updated successfully!",
+      message: "Profile image updated!",
       user: updatedUser,
     });
   } catch (error) {
     console.error("Error uploading image:", error);
-    res.status(500).json({ success: false, message: "Failed to upload image" });
+    res.status(500).json({ message: "Failed to upload image" });
   }
 });
 
