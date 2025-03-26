@@ -3,6 +3,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const router = express.Router();
 const { roleCheck } = require("../middleware/middone");
+const userRepository= require('../repository/repo')
 
 const { encryptPassword } = require("../middleware/midd");
 const { Signup, Login } = require("../controller/auth");
