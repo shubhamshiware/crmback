@@ -20,6 +20,7 @@ const usersSchema = new Schema({
     default: "",
     trim: true,
   },
+  profileImage: { type: String, default: "" },
   username: {
     type: String,
     unique: true,
