@@ -6,12 +6,21 @@ const { editData, deleteData, getDataById } = require("../repository/client");
 const clientRepository = require("../repository/client");
 const clientSchema = require("../model/clients");
 const multer = require("multer");
-const upload = multer({ dest: "uploads/" }); // Ensure Cloudinary setup is correct
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
+const cloudinary = require("../controller/cloudinary"); // Cloudinary configuration file
+ 
 
 const mongoose = require("mongoose");
 
 const { Schema } = mongoose;
-
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: "profile_pictures", // Folder where images will be stored in Cloudinary
+    allowed_formats: ["jpg", "png", "jpeg"],
+  },
+});
+const upload = multer({ storage });
 // Route to save a client
 router.post("/clients", async (req, res) => {
   console.log(req.body, "testing ");
@@ -304,11 +313,14 @@ router.post("/:id/upload", upload.single("image"), async (req, res) => {
     console.log(req.file, "Uploaded File");
 
     const { userId } = req.body;
-    if (!req.file) return res.status(400).json({ message: "No file uploaded" });
+    if (!req.file) {
+      return res.status(400).json({ message: "No file uploaded" });
+    }
 
-    const imageUrl = req.file.path; // Cloudinary URL
+    // ✅ Ensure Cloudinary URL is used
+    const imageUrl = req.file.path; // This should now be the Cloudinary URL
 
-    // Update user profile
+    // Update user profile with Cloudinary image URL
     const updatedUser = await clientSchema.findByIdAndUpdate(
       userId,
       { profileImage: imageUrl },
