@@ -101,7 +101,7 @@ router.get("/user/:id", async (req, res) => {
 });
 
 
-router.post("/imgupload/:id", upload.single("image"), async (req, res) => {
+router.post("/:id/imgupload", upload.single("image"), async (req, res) => {
   try {
     console.log(req.body, "Request Body");
     console.log(req.file, "Uploaded File");
@@ -135,3 +135,6 @@ router.post("/imgupload/:id", upload.single("image"), async (req, res) => {
 module.exports = router;
 
 //veryfy middlewere works bit late that neds to be improved fro production
+
+
+//https://crmback-tjvw.onrender.com/user/imgupload/${userId}
