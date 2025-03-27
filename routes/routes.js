@@ -100,35 +100,36 @@ router.get("/user/:id", async (req, res) => {
   }
 });
 
-
 router.post("/:id/imgupload", upload.single("image"), async (req, res) => {
   try {
     console.log(req.body, "Request Body");
     console.log(req.file, "Uploaded File");
 
-    const { userId } = req.body;
+    const { id } = req.params; // ✅ Get user ID from URL parameters
     if (!req.file) {
       return res.status(400).json({ message: "No file uploaded" });
     }
 
-    // ✅ Ensure Cloudinary URL is used
-    const imageUrl = req.file.path; // This should now be the Cloudinary URL
+    const imageUrl = req.file.path; // ✅ Cloudinary URL
 
-    // Update user profile with Cloudinary image URL
-    const updatedUser = await userSchema.findByIdAndUpdate(
-      userId,
-      { profileImage: imageUrl },
-      { new: true }
-    );
+    // ✅ Check if user exists
+    const user = await userSchema.findById(id);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // ✅ Update user with profile image
+    user.profileImage = imageUrl;
+    await user.save();
 
     res.status(200).json({
       success: true,
       message: "Profile image updated!",
-      user: updatedUser,
+      user,
     });
   } catch (error) {
     console.error("Error uploading image:", error);
-    res.status(500).json({ message: "Failed to upload image" });
+    res.status(500).json({ message: "Failed to upload image", error: error.message });
   }
 });
 
@@ -137,4 +138,4 @@ module.exports = router;
 //veryfy middlewere works bit late that neds to be improved fro production
 
 
-//https://crmback-tjvw.onrender.com/user/imgupload/${userId}
+//currently url is storing in data base needs to work in backend for storing cloudinary url and frontend profile page section needs to be worked on 
