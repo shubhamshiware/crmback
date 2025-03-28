@@ -54,7 +54,7 @@ router.put("/edit", async (req, res) => {
         (task.points || 0) + (completed ? update.points : -update.points);
     }
 
-    // Update task in the database
+    
     const updatedTask = await repo.findByIdAndUpdate(
       _id,
       { $set: updateFields },
@@ -91,4 +91,4 @@ router.delete("/content/:id", async (req, res) => {
 
 module.exports = router;
 
-//somtimes db makes problem while updating in different hosting invirment need to restart service
+
