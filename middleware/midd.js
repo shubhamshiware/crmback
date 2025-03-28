@@ -55,4 +55,4 @@ const verifytoken = (req, res, next) => {
 
 module.exports = { encryptPassword, verifytoken };
 
-//we replaced bcrypt librarry with bcryptjs due to some conflict and incompatabilty issue
+
