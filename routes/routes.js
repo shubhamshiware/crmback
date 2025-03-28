@@ -47,6 +47,7 @@ router.get("/", async (req, res) => {
 
 router.post("/task", async (req, res) => {
   try {
+    console.log(req.body)
     const result = await taskRepository.saveData(req.body);
     res.status(201).json({ success: true, data: result });
   } catch (error) {
@@ -139,3 +140,5 @@ module.exports = router;
 
 
 //currently url is storing in data base needs to work in backend for storing cloudinary url and frontend profile page section needs to be worked on 
+
+
