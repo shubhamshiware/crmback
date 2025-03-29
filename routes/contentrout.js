@@ -31,16 +31,16 @@ router.get("/", async (req, res) => {
 router.put("/edit", async (req, res) => {
   console.log(req.body, "edit tasks ");
   try {
-    const { _id, update, completed } = req.body;
+    const { id, update, completed } = req.body;
 
    
     // Validate required fields
-    if (!_id || typeof update !== "object") {
+    if (!id || typeof update !== "object") {
       return res.status(400).json({ error: "Missing _id or update field" });
     }
 
 
-    const task = await repo.findById(_id);
+    const task = await repo.findById(id);
     if (!task) {
       return res.status(404).json({ error: "Task not found" });
     }
