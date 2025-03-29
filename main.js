@@ -8,6 +8,7 @@ const meetingRout = require("./routes/meetingrout");
 const taskRout = require("./routes/taskrout");
 const contentRout = require("./routes/contentrout");
 const salseRout = require("./routes/salserout");
+const attendenceRout = require("./routes/attendence");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 
@@ -34,6 +35,7 @@ app.use("/meeting", meetingRout);
 app.use("/task", taskRout);
 app.use("/content", contentRout);
 app.use("/salse", salseRout);
+app.use("/attendence", attendenceRout);
 
 dbConnect()
   .then((data) => {
