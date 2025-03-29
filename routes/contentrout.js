@@ -29,7 +29,7 @@ router.get("/", async (req, res) => {
 });
 
 router.put("/edit", async (req, res) => {
-  console.log(req.body, "tasks");
+  console.log(req.body, "edit tasks ");
   try {
     const { _id, update, completed } = req.body;
 
