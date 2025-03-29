@@ -27,6 +27,7 @@ const isWithinRange = (userLat, userLng) => {
 
 // ✅ Attendance API
 router.post("/attendance", async (req, res,id) => {
+    console.log(id,"userid")
   const { latitude,longitude } = req.body;
 
   if (!latitude || !longitude) {
