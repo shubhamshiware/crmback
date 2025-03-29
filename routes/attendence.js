@@ -27,7 +27,7 @@ const isWithinRange = (userLat, userLng) => {
 
 // ✅ Attendance API
 router.post("/attendance", async (req, res,id) => {
-  const { latitude,longitude,id } = req.body;
+  const { latitude,longitude } = req.body;
 
   if (!latitude || !longitude) {
     return res.status(400).json({ message: "Location data missing" });
@@ -48,7 +48,9 @@ router.post("/attendance", async (req, res,id) => {
   });
 
   await attendance.save();
-  res.json({ message: "Attendance marked successfully" });
+  res.json({ message: "Attendance marked successfully" ,
+    userid:id
+  });
 });
 
 module.exports = router;
