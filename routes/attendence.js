@@ -4,6 +4,17 @@ const express = require("express");
 // const { verifytoken } = require("../middleware/midd");
 const mongoose = require("mongoose");
 const router = express.Router();
+const {
+  getData,
+  
+} = require("../repository/attendence");
+
+
+router.get("/", async (req, res) => {
+  const data1 = await getData();
+  res.json({ data: data1 });
+});
+
 
 const OFFICE_LOCATION = { latitude: 22.05911163145492, longitude: 78.92991505636398 }; // Example (Delhi)
 
@@ -16,7 +27,7 @@ const isWithinRange = (userLat, userLng) => {
 
 // ✅ Attendance API
 router.post("/attendance", async (req, res,id) => {
-  const { latitude, longitude } = req.body;
+  const { latitude,longitude,id } = req.body;
 
   if (!latitude || !longitude) {
     return res.status(400).json({ message: "Location data missing" });
@@ -29,7 +40,7 @@ router.post("/attendance", async (req, res,id) => {
   }
 
   const attendance = new Attendance({
-    userId: "id", // Replace with JWT user id
+    userId: id, // Replace with JWT user id
     date: new Date(),
     latitude,
     longitude,
