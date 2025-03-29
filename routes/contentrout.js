@@ -32,7 +32,7 @@ router.put("/edit", async (req, res) => {
   console.log(req.body, "edit tasks ");
   try {
     const { id, update, completed } = req.body;
-console.log(id,"edittask by id ")
+console.log( update,"edittask by id ")
    
     // Validate required fields
     if (!id || typeof update !== "object") {
