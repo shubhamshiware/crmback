@@ -26,36 +26,25 @@ const isWithinRange = (userLat, userLng) => {
   return distance < 0.01; // Adjust threshold (lower means more precise)
 };
 
-   router.post("/attendance", async (req, res) => {
+
+router.post("/attendance", async (req, res) => {
     try {
-      console.log(req.body, " attendence body");
+      console.log(req.body, "request body");
   
-      const token = req.headers.authorization?.split(" ")[1];
+      const { id, latitude, longitude } = req.body; // Extract user ID from the request body
   
-      if (!token) {
-        return res.status(401).json({ message: "Unauthorized: No token provided" });
+      if (!id || !latitude || !longitude) {
+        return res.status(400).json({ message: "Missing required fields" });
       }
   
-      if (!process.env.JWT_SECRET) {
-        return res.status(500).json({ message: "Server error: JWT secret key is missing" });
-      }
-  
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      const userId = decoded.id; // Extract user ID from JWT
-  
-      const { latitude, longitude } = req.body;
-  
-      if (!latitude || !longitude) {
-        return res.status(400).json({ message: "Location data missing" });
-      }
-  
-      const isAllowed = isWithinRange(latitude, longitude);
-      if (!isAllowed) {
+      // Check if user is within allowed range
+      if (!isWithinRange(latitude, longitude)) {
         return res.status(403).json({ message: "You are not at the required location" });
       }
   
+      // Save attendance in database
       const attendance = new Attendance({
-        userId,
+        userId: id, // Directly using id from request
         date: new Date(),
         latitude,
         longitude,
@@ -64,10 +53,10 @@ const isWithinRange = (userLat, userLng) => {
   
       await attendance.save();
   
-      res.json({ message: "Attendance marked successfully", userId });
+      res.json({ message: "Attendance marked successfully", userId: id });
     } catch (error) {
       console.error("Error marking attendance:", error);
-      res.status(500).json({ message: "Server error", error: error.message });
+      res.status(500).json({ message: "Internal server error" });
     }
   });
   
