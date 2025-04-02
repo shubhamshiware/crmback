@@ -28,7 +28,7 @@ const isWithinRange = (userLat, userLng) => {
 
    router.post("/attendance", async (req, res) => {
     try {
-      console.log(req.body, "request body");
+      console.log(req.body, " attendence body");
   
       const token = req.headers.authorization?.split(" ")[1];
   
