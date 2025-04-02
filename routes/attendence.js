@@ -26,21 +26,22 @@ const isWithinRange = (userLat, userLng) => {
   return distance < 0.01; // Adjust threshold (lower means more precise)
 };
 
-// ✅ Attendance API
-router.post("/attendance", async (req, res) => {
+   router.post("/attendance", async (req, res) => {
     try {
       console.log(req.body, "request body");
   
-      // Extract token from headers
       const token = req.headers.authorization?.split(" ")[1];
   
       if (!token) {
         return res.status(401).json({ message: "Unauthorized: No token provided" });
       }
   
-      // Verify and decode the token to get userId
-      const decoded = jwt.verify(token, process.env.JWT_SECRET); // Ensure you use the correct secret key
-      const userId = decoded.id; // Ensure this matches how userId is stored in JWT
+      if (!process.env.JWT_SECRET) {
+        return res.status(500).json({ message: "Server error: JWT secret key is missing" });
+      }
+  
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      const userId = decoded.id; // Extract user ID from JWT
   
       const { latitude, longitude } = req.body;
   
@@ -48,15 +49,13 @@ router.post("/attendance", async (req, res) => {
         return res.status(400).json({ message: "Location data missing" });
       }
   
-      // Check if the user is within the allowed range
       const isAllowed = isWithinRange(latitude, longitude);
       if (!isAllowed) {
         return res.status(403).json({ message: "You are not at the required location" });
       }
   
-      // Save attendance with correct userId
       const attendance = new Attendance({
-        userId, // Use extracted userId from JWT
+        userId,
         date: new Date(),
         latitude,
         longitude,
@@ -71,6 +70,7 @@ router.post("/attendance", async (req, res) => {
       res.status(500).json({ message: "Server error", error: error.message });
     }
   });
+  
   
 
 router.get("/:userId",  async (req, res) => {
