@@ -28,7 +28,7 @@ const isWithinRange = (userLat, userLng) => {
 
 // ✅ Attendance API
 router.post("/attendance", async (req, res,id) => {
-    console.log(id,"userid")
+    console.log(req.body,"reuest body")
   const { latitude,longitude } = req.body;
 
   if (!latitude || !longitude) {
@@ -56,6 +56,7 @@ router.post("/attendance", async (req, res,id) => {
 });
 
 router.get("/:userId",  async (req, res) => {
+    
     try {
         const { userId } = req.params;
         if (!mongoose.Types.ObjectId.isValid(userId)) {
