@@ -18,15 +18,14 @@ router.get("/", async (req, res) => {
 
 
 const OFFICE_LOCATION = { latitude: 22.05911163145492, longitude: 78.92991505636398 }; // Example (Delhi)
-
 const isWithinRange = (userLat, userLng) => {
-  const distance = Math.sqrt(
-    Math.pow(userLat - OFFICE_LOCATION.latitude, 2) + Math.pow(userLng - OFFICE_LOCATION.longitude, 2)
-  );
-  return distance < 0.01; // Adjust threshold (lower means more precise)
-};
-
-router.post("/attendance", async (req, res) => {
+    const distance = Math.sqrt(
+      Math.pow(userLat - OFFICE_LOCATION.latitude, 2) + Math.pow(userLng - OFFICE_LOCATION.longitude, 2)
+    );
+    return distance < 0.01; // Adjust threshold (lower means more precise)
+  };
+  
+  router.post("/attendance", async (req, res) => {
     try {
       console.log(req.body, "request body");
   
@@ -42,23 +41,34 @@ router.post("/attendance", async (req, res) => {
         return res.status(403).json({ message: "You are not at the required location" });
       }
   
+      // Get current time in hours
+      const now = new Date();
+      const currentHour = now.getHours(); // Get hours in 24-hour format
+  
+      // Set attendance status based on time
+      const attendanceStatus = currentHour >= 11 ? "Half Day" : "Present";
+  
       // Save attendance in database
       const attendance = new Attendance({
         userId, // Use correct field name
-        date: new Date(),
+        date: now, // Save the current timestamp
         latitude,
         longitude,
-        status: "Present",
+        status: attendanceStatus,
       });
   
       await attendance.save();
   
-      res.json({ message: "Attendance marked successfully", userId });
+      res.json({ 
+        message: `Attendance marked successfully as ${attendanceStatus}`, 
+        userId 
+      });
     } catch (error) {
       console.error("Error marking attendance:", error);
       res.status(500).json({ message: "Internal server error" });
     }
   });
+  
   
   
 
@@ -80,3 +90,6 @@ router.get("/:userId",  async (req, res) => {
 });
 
 module.exports = router;
+
+//this apis work is done just need to implement some condition if someone comes after
+// it should show there a half day attandence  
