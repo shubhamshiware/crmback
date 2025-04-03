@@ -32,7 +32,7 @@ router.post("/attendance", async (req, res) => {
       console.log(req.body, "request body");
   
       const { id, latitude, longitude } = req.body; // Extract user ID from the request body
-  
+        console.log(id , latitude,longitude,"missing data ");
       if (!id || !latitude || !longitude) {
         return res.status(400).json({ message: "Missing req fields" });
       }
