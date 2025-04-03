@@ -34,7 +34,7 @@ router.post("/attendance", async (req, res) => {
       const { id, latitude, longitude } = req.body; // Extract user ID from the request body
   
       if (!id || !latitude || !longitude) {
-        return res.status(400).json({ message: "Missing required fields" });
+        return res.status(400).json({ message: "Missing req fields" });
       }
   
       // Check if user is within allowed range
