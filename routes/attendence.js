@@ -26,15 +26,15 @@ const isWithinRange = (userLat, userLng) => {
   return distance < 0.01; // Adjust threshold (lower means more precise)
 };
 
-
 router.post("/attendance", async (req, res) => {
     try {
       console.log(req.body, "request body");
   
-      const { id, latitude, longitude } = req.body; // Extract user ID from the request body
-        console.log(id , latitude,longitude,"missing data ");
-      if (!id || !latitude || !longitude) {
-        return res.status(400).json({ message: "Missing req fields" });
+      const { userId, latitude, longitude } = req.body; // Extract user ID correctly
+      console.log(userId, latitude, longitude, "missing data");
+  
+      if (!userId || !latitude || !longitude) {
+        return res.status(400).json({ message: "Missing required fields" });
       }
   
       // Check if user is within allowed range
@@ -44,7 +44,7 @@ router.post("/attendance", async (req, res) => {
   
       // Save attendance in database
       const attendance = new Attendance({
-        userId: id, // Directly using id from request
+        userId, // Use correct field name
         date: new Date(),
         latitude,
         longitude,
@@ -53,7 +53,7 @@ router.post("/attendance", async (req, res) => {
   
       await attendance.save();
   
-      res.json({ message: "Attendance marked successfully", userId: id });
+      res.json({ message: "Attendance marked successfully", userId });
     } catch (error) {
       console.error("Error marking attendance:", error);
       res.status(500).json({ message: "Internal server error" });
