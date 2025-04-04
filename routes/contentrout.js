@@ -31,9 +31,12 @@ router.get("/", async (req, res) => {
 router.put("/edit", async (req, res) => {
   console.log(req.body, "edit tasks ");
   try {
-    const { _id, update, completed } = req.body;
+    const { _id, update} = req.body;
 
-   
+   console.log(_id,"incomming");
+   console.log(update,"update");
+  //  console.log(completed,"update");
+
     // Validate required fields
     if (!_id || typeof update !== "object") {
       return res.status(400).json({ error: "Missing _id or update field" });
