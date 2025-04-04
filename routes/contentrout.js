@@ -33,9 +33,8 @@ router.put("/edit", async (req, res) => {
   try {
     const { _id, update, completed } = req.body;
 
-   console.log(_id,"incomming");
-   console.log(update,"update");
-  //  console.log(completed,"update");
+   
+   console.log(completed,"fild");
 
     // Validate required fields
     if (!_id || typeof update !== "object") {
