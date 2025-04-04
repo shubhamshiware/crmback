@@ -31,7 +31,7 @@ router.get("/", async (req, res) => {
 router.put("/edit", async (req, res) => {
   console.log(req.body, "edit tasks ");
   try {
-    const { id, update, completed } = req.body;
+    const { _id, update, completed } = req.body;
 console.log( completed,update,id,"edittask by id ")
    
     // Validate required fields
