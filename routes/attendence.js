@@ -29,7 +29,7 @@ const isWithinRange = (userLat, userLng) => {
     try {
       console.log(req.body, "request body");
   
-      const { userId, latitude, longitude } = req.body; // Extract user ID correctly
+      const { userId, latitude, longitude } = req.body; 
     //   console.log(userId, latitude, longitude, "missing data");
   
       if (!userId || !latitude || !longitude) {
@@ -44,10 +44,11 @@ const isWithinRange = (userLat, userLng) => {
       // Get current time in hours
       const now = new Date();
       const currentHour = now.getHours(); // Get hours in 24-hour format
+      console.log(currentHour,"hour")
   
       // Set attendance status based on time
       const attendanceStatus = currentHour >= 11 ? "Half Day" : "Present";
-  
+  console.log(attendanceStatus,"status")
       // Save attendance in database
       const attendance = new Attendance({
         userId, // Use correct field name
