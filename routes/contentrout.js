@@ -35,12 +35,12 @@ router.put("/edit", async (req, res) => {
 console.log( completed,update,_id,"edittask by id ")
    
     // Validate required fields
-    if (!id || typeof update !== "object") {
+    if (!_id || typeof update !== "object") {
       return res.status(400).json({ error: "Missing _id or update field" });
     }
 
 
-    const task = await repo.findById(id);
+    const task = await repo.findById(_id);
     if (!task) {
       return res.status(404).json({ error: "Task not found" });
     }
