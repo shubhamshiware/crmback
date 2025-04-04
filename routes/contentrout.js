@@ -32,7 +32,7 @@ router.put("/edit", async (req, res) => {
   console.log(req.body, "edit tasks ");
   try {
     const { _id, update, completed } = req.body;
-console.log( completed,update,_id,"edittask by id ")
+
    
     // Validate required fields
     if (!_id || typeof update !== "object") {
@@ -54,7 +54,7 @@ console.log( completed,update,_id,"edittask by id ")
       updateFields.points =
         (task.points || 0) + (completed ? update.points : -update.points);
     }
-
+    console.log(_id,"update id  ")
     
     const updatedTask = await repo.findByIdAndUpdate(
       _id,
