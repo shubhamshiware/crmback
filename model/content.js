@@ -6,7 +6,7 @@ const contentSchema = new mongoose.Schema({
   discription:String,
   completed: { type: Boolean, default: false },
   points: { type: Number, default: 0 },
-  dueDate: { type: Date, default: Date.now },
+  uploadedAt: { type: Date, default: Date.now },
 });
 
 module.exports = mongoose.model("content", contentSchema);
