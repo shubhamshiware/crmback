@@ -33,41 +33,53 @@ router.put("/edit", async (req, res) => {
   try {
     const { _id, update, completed } = req.body;
 
-   
-   console.log(completed,"fild");
+    console.log(completed, "fild");
+    console.log(_id, "idd");
 
-    // Validate required fields
-    if (!_id || typeof update !== "object") {
-      return res.status(400).json({ error: "Missing _id or update field" });
+    // Validate _id
+    if (!_id) {
+      return res.status(400).json({ error: "Missing _id field" });
     }
-
 
     const task = await repo.findById(_id);
     if (!task) {
       return res.status(404).json({ error: "Task not found" });
     }
 
-    // Prepare update object
-    let updateFields = { ...update };
-    if (completed !== undefined) updateFields.completed = completed;
+    // Build updateFields
+    let updateFields = {};
 
-    // Update points dynamically
-    if (typeof update.points === "number") {
+    // Handle if `update` is a string (task text)
+    if (typeof update === "string") {
+      updateFields.task = update;
+    }
+
+    // If `update` is an object, merge all fields into updateFields
+    if (typeof update === "object" && update !== null) {
+      updateFields = { ...updateFields, ...update };
+    }
+
+    // Handle completed separately
+    if (typeof completed !== "undefined") {
+      updateFields.completed = completed;
+    }
+
+    // Update points logic
+    if (typeof update?.points === "number") {
       updateFields.points =
         (task.points || 0) + (completed ? update.points : -update.points);
     }
-    console.log(_id,"update id  ")
-    
+
     const updatedTask = await repo.findByIdAndUpdate(
       _id,
       { $set: updateFields },
       { new: true }
     );
 
-    console.log(" Updated Task:", updatedTask);
+    console.log("Updated Task:", updatedTask);
     res.json(updatedTask);
   } catch (err) {
-    console.error(" Error updating task:", err);
+    console.error("Error updating task:", err);
     res.status(500).json({ error: err.message });
   }
 });
