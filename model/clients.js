@@ -14,12 +14,12 @@ const clientSchema = new mongoose.Schema({
   videos: [
     {
       videoNumber: { type: Number },
-      isCompleted: { type: Boolean, default: false }, // Video completion status
+      isCompleted: { type: Boolean, default: false },
     },
   ],
   designs: [
     {
-      designNumber: { type: Number }, // Design identifier (e.g., 1, 2, 3, 4)
+      designNumber: { type: Number },
       isCompleted: { type: Boolean, default: false },
     },
   ],

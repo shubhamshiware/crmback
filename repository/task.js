@@ -27,7 +27,7 @@ const editData = (data) => {
 };
 
 const getDataById = async (id) => {
-  console.log(id,"id of tasks ")
+  console.log(id, "id of tasks ");
   try {
     const objectId = new ObjectId(id); // Convert string ID to ObjectId
     return await clientSchema.findOne({ _id: objectId }); // Fetch data by ObjectId
@@ -44,6 +44,3 @@ module.exports = {
   editData,
   getDataByUserName,
 };
-
-
-
