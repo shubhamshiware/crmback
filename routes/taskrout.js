@@ -100,4 +100,14 @@ router.get("/:id", roleCheck(["author"]), async (req, res) => {
   }
 });
 
+router.delete(
+  "/delete",
+
+  roleCheck(["admin"]),
+  async (req, res) => {
+    const result = await deleteData(req.body.id);
+    res.json({ message: "Data deleted", data: result });
+  }
+);
+
 module.exports = router;

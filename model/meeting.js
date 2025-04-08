@@ -9,5 +9,3 @@ const meetingSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model("meeting", meetingSchema);
-
-//unused schema

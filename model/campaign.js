@@ -10,5 +10,3 @@ const campaignSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model("campaign", campaignSchema);
-
-//unused schema made for
