@@ -8,3 +8,7 @@ cloudinary.config({
 });
 
 module.exports = cloudinary;
+
+//secret key - ubLkXmhUp7oh4KnbCf0XE2KMjFI
+//api key - 743863682556275
+//cloud name - dhvgqn6nh

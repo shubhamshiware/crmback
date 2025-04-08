@@ -29,7 +29,6 @@ router.get("/", async (req, res) => {
 });
 
 router.put("/edit", async (req, res) => {
-  console.log(req.body, "edit tasks ");
   try {
     const { _id, update, completed } = req.body;
 
@@ -85,6 +84,7 @@ router.put("/edit", async (req, res) => {
 });
 
 router.get("/users/:userId", async (req, res) => {
+  console.log(req.body, "incomming body ");
   try {
     const { userId } = req.params;
     const tasks = await Content.find({ userId }); // Fetch only tasks for this user
@@ -105,5 +105,3 @@ router.delete("/content/:id", async (req, res) => {
 });
 
 module.exports = router;
-
-
