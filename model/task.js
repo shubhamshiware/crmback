@@ -14,7 +14,7 @@ const taskSchema = new mongoose.Schema({
     default: "Medium",
   },
   status: { type: String, enum: ["Pending", "Completed"], default: "Pending" },
-  assignedTo: String, // Team member
+  assignedTo: String,
 });
 
 module.exports = mongoose.model("task", taskSchema);
