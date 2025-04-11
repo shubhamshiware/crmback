@@ -22,10 +22,15 @@ const mongoUri =
   "mongodb+srv://user123:EHc0dB43WpqycSvE@cluster0.7lhwy.mongodb.net/manage?retryWrites=true&w=majority";
 
 // Create HTTP server and attach Socket.IO
+const { Server } = require("socket.io");
 const server = http.createServer(app);
-const io = socketIO(server, {
+
+// ✅ Use your frontend URL here
+const io = new Server(server, {
   cors: {
-    origin: "*",
+    origin: "https://crmfrontend-s254.onrender.com", // your React frontend
+    methods: ["GET", "POST"],
+    credentials: true,
   },
 });
 
