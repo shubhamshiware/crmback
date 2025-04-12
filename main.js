@@ -35,6 +35,13 @@ const io = new Server(server, {
   },
 });
 
+app.use(
+  cors({
+    origin: "https://crmfrontend-s254.onrender.com",
+    credentials: true,
+  })
+);
+
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
@@ -52,7 +59,7 @@ app.use("/content", contentRout);
 app.use("/salse", salseRout);
 app.use("/attendence", attendenceRout);
 app.use("/chat", chatRout);
-app.use("/message", messageRout);
+// app.use("/message", messageRout);
 
 // MongoDB Connection
 const dbConnect = () => {
