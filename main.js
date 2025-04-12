@@ -17,12 +17,13 @@ const salseRout = require("./routes/salserout");
 const attendenceRout = require("./routes/attendence");
 const chatRout = require("./routes/chatsrout");
 const messageRout = require("./routes/messagerout");
+const { Server } = require("socket.io");
 
 const mongoUri =
   "mongodb+srv://user123:EHc0dB43WpqycSvE@cluster0.7lhwy.mongodb.net/manage?retryWrites=true&w=majority";
 
 // Create HTTP server and attach Socket.IO
-const { Server } = require("socket.io");
+
 const server = http.createServer(app);
 
 // ✅ Use your frontend URL here
