@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 
 const roleCheck = (allowedRoles) => (req, res, next) => {
-  const userRole = req.user.role; // Assuming user role is available in req.user
+  const userRole = req.user.role;
   if (allowedRoles.includes(userRole)) {
     return next();
   }

@@ -20,7 +20,6 @@ const encryptPassword = (req, res, next) => {
       return res.status(500).send("Error hashing password");
     }
 
-    // Replace the plain password with the hashed one
     req.body.password = hash;
 
     // Proceed to the next middleware or route handler
@@ -54,5 +53,3 @@ const verifytoken = (req, res, next) => {
 };
 
 module.exports = { encryptPassword, verifytoken };
-
-
