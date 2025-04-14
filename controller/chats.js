@@ -68,6 +68,7 @@ const createGroupChat = async (req, res) => {
 };
 
 const renameGroup = async (req, res) => {
+  console.log(req.body, "sfjf");
   const { chatId, chatName } = req.body;
 
   const updatedChat = await Chat.findByIdAndUpdate(
@@ -82,6 +83,7 @@ const renameGroup = async (req, res) => {
 };
 
 const addToGroup = async (req, res) => {
+  console.log(req.body, "dhfh");
   const { chatId, userId } = req.body;
 
   const chat = await Chat.findByIdAndUpdate(
