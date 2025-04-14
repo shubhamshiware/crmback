@@ -13,8 +13,8 @@ const { protect } = require("../middleware/protect");
 const router = express.Router();
 
 router.post("/", protect, accessChat); // One-on-one chat
-router.get("/", protect, fetchChats); // Get all user's chats
-router.post("/group", protect, createGroupChat); // Create group
+router.get("/", fetchChats); // Get all user's chats
+router.post("/group", createGroupChat); // Create group
 router.put("/rename", protect, renameGroup);
 router.put("/groupadd", protect, addToGroup);
 router.put("/groupremove", protect, removeFromGroup);
