@@ -31,6 +31,7 @@ const accessChat = async (req, res) => {
 };
 
 const fetchChats = async (req, res) => {
+  console.log(req.body, "chats fetched");
   const chats = await Chat.find({ users: { $in: [req.user._id] } })
     .populate("users", "-password")
     .populate("groupAdmin", "-password")
@@ -41,6 +42,7 @@ const fetchChats = async (req, res) => {
 };
 
 const createGroupChat = async (req, res) => {
+  console.log(req.body, "group chat ");
   const { users, name } = req.body;
 
   if (!users || !name) return res.status(400).send("Missing fields");
