@@ -39,7 +39,7 @@ const User = require("../model/user");
 
 const protect = async (req, res, next) => {
   // Fake user (replace with a real user ID from your database for testing)
-  const fakeUserId = "6616b67a7c2bcd47ebea9c2e"; // replace with valid MongoDB ObjectId from your DB
+  const fakeUserId = "6787aa68b3dcc7c7508b408e";
   const user = await User.findById(fakeUserId).select("-password");
 
   if (!user) {
