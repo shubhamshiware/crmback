@@ -3,6 +3,7 @@
 const Chat = require("../model/chat.js");
 
 const accessChat = async (req, res) => {
+  console.log(req.body, "accesschat");
   const { userId } = req.body;
 
   if (!userId) return res.status(400).send("UserId is required");
