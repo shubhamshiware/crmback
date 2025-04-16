@@ -3,6 +3,8 @@ const User = require("../model/user");
 require("dotenv").config(); // make sure this is loaded
 
 const protect = async (req, res, next) => {
+  console.log("JWT_SECRET:", process.env.JWT_SECRET);
+
   let token;
 
   if (
