@@ -15,6 +15,7 @@ const protect = async (req, res, next) => {
 
       // ✅ Use the secret key here
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      console.log(decoded, "secret key");
 
       // 👇 Attach the user to request object
       req.user = await User.findById(decoded.id).select("-password");
