@@ -1,6 +1,7 @@
 const Chat = require("../model/chat");
 
 const accessChat = async (req, res) => {
+  console.log(req.body, "incoming message");
   const { userId1, userId2 } = req.body;
 
   try {

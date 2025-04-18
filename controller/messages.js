@@ -2,6 +2,7 @@ const Message = require("../model/message");
 const Chat = require("../model/chat");
 
 const sendMessage = async (req, res) => {
+  console.log(req.body, "message rout ");
   const { senderId, content, chatId } = req.body;
 
   try {
@@ -24,6 +25,7 @@ const sendMessage = async (req, res) => {
 };
 
 const getMessages = async (req, res) => {
+  console.log(req.body, "messagesrout getmessage");
   const { chatId } = req.params;
 
   try {
