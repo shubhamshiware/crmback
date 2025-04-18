@@ -1,37 +1,40 @@
-// import Message from "../model/message.js";
-// import Chat from "../model/chat.js";
-const Message = require("../model/message.js");
-const Chat = require("../model/chat.js");
+const Message = require("../models/Message");
+const Chat = require("../models/Chat");
 
 const sendMessage = async (req, res) => {
-  const { content, chatId } = req.body;
+  const { senderId, content, chatId } = req.body;
 
-  if (!content || !chatId) return res.status(400).send("Invalid data");
+  try {
+    const newMessage = await Message.create({
+      sender: senderId,
+      content,
+      chat: chatId,
+    });
 
-  const newMessage = await Message.create({
-    sender: req.user._id,
-    content,
-    chat: chatId,
-  });
+    await Chat.findByIdAndUpdate(chatId, { latestMessage: newMessage._id });
 
-  const fullMessage = await Message.findById(newMessage._id)
-    .populate("sender", "name email")
-    .populate("chat");
+    const fullMessage = await Message.findById(newMessage._id)
+      .populate("sender", "name email")
+      .populate("chat");
 
-  await Chat.findByIdAndUpdate(chatId, { latestMessage: fullMessage });
-
-  res.json(fullMessage);
+    res.json(fullMessage);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };
 
-const allMessages = async (req, res) => {
-  const messages = await Message.find({ chat: req.params.chatId })
-    .populate("sender", "name email")
-    .populate("chat");
+const getMessages = async (req, res) => {
+  const { chatId } = req.params;
 
-  res.json(messages);
+  try {
+    const messages = await Message.find({ chat: chatId })
+      .populate("sender", "name email")
+      .sort({ createdAt: 1 });
+
+    res.json(messages);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };
 
-module.exports = {
-  allMessages,
-  sendMessage,
-};
+module.exports = { sendMessage, getMessages };
