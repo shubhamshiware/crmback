@@ -60,7 +60,6 @@ router.put("/edit", async (req, res) => {
 router.delete(
   "/delete",
 
-  roleCheck(["admin"]),
   async (req, res) => {
     console.log("delete called");
     const result = await deleteData(req.body.id);
