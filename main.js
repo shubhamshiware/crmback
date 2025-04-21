@@ -16,7 +16,7 @@ const contentRout = require("./routes/contentrout");
 const salseRout = require("./routes/salserout");
 const attendenceRout = require("./routes/attendence");
 const chatRout = require("./routes/chatsrout");
-// const messageRout = require("./routes/messagerout");
+const messageRout = require("./routes/messagerout");
 const { Server } = require("socket.io");
 
 const mongoUri =
