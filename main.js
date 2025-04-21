@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const http = require("http"); // <-- required for socket.io
-const socketIO = require("socket.io");
+// const socketIO = require("socket.io");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 
@@ -15,8 +15,8 @@ const taskRout = require("./routes/taskrout");
 const contentRout = require("./routes/contentrout");
 const salseRout = require("./routes/salserout");
 const attendenceRout = require("./routes/attendence");
-const chatRout = require("./routes/chatsrout");
-const messageRout = require("./routes/messagerout");
+// const chatRout = require("./routes/chatsrout");
+// const messageRout = require("./routes/messagerout");
 const { Server } = require("socket.io");
 
 const mongoUri =
@@ -27,13 +27,13 @@ const mongoUri =
 const server = http.createServer(app);
 
 // ✅ Use your frontend URL here
-const io = new Server(server, {
-  cors: {
-    origin: "https://crmfrontend-s254.onrender.com", // your React frontend
-    methods: ["GET", "POST"],
-    credentials: true,
-  },
-});
+// const io = new Server(server, {
+//   cors: {
+//     origin: "https://crmfrontend-s254.onrender.com", // your React frontend
+//     methods: ["GET", "POST"],
+//     credentials: true,
+//   },
+// });
 
 app.use(
   cors({
@@ -58,8 +58,8 @@ app.use("/task", taskRout);
 app.use("/content", contentRout);
 app.use("/salse", salseRout);
 app.use("/attendence", attendenceRout);
-app.use("/chat", chatRout);
-app.use("/message", messageRout);
+// app.use("/chat", chatRout);
+// app.use("/message", messageRout);
 
 // MongoDB Connection
 const dbConnect = () => {
@@ -70,30 +70,30 @@ const dbConnect = () => {
 };
 
 // Socket.IO connection
-io.on("connection", (socket) => {
-  console.log("⚡ New client connected:", socket.id);
+// io.on("connection", (socket) => {
+//   console.log("⚡ New client connected:", socket.id);
 
-  socket.on("join chat", (room) => {
-    socket.join(room);
-    console.log(`User joined room: ${room}`);
-  });
+//   socket.on("join chat", (room) => {
+//     socket.join(room);
+//     console.log(`User joined room: ${room}`);
+//   });
 
-  socket.on("new message", (newMessage) => {
-    const chat = newMessage.chat;
+//   socket.on("new message", (newMessage) => {
+//     const chat = newMessage.chat;
 
-    if (!chat.users) return;
+//     if (!chat.users) return;
 
-    chat.users.forEach((user) => {
-      if (user._id !== newMessage.sender._id) {
-        socket.to(user._id).emit("message received", newMessage);
-      }
-    });
-  });
+//     chat.users.forEach((user) => {
+//       if (user._id !== newMessage.sender._id) {
+//         socket.to(user._id).emit("message received", newMessage);
+//       }
+//     });
+//   });
 
-  socket.on("disconnect", () => {
-    console.log("🔌 Client disconnected:", socket.id);
-  });
-});
+//   socket.on("disconnect", () => {
+//     console.log("🔌 Client disconnected:", socket.id);
+//   });
+// });
 
 // Start Server
 dbConnect()
