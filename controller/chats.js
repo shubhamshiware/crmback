@@ -23,4 +23,16 @@ const accessChat = async (req, res) => {
   }
 };
 
-module.exports = { accessChat };
+const getAllChats = async (req, res) => {
+  try {
+    const chats = await Chat.find().populate("users", "-password");
+    res.json(chats);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports = {
+  accessChat,
+  getAllChats,
+};
