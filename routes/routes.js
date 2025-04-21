@@ -3,7 +3,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const router = express.Router();
 const { roleCheck } = require("../middleware/middone");
-const userRepository= require('../repository/repo')
+const userRepository = require("../repository/repo");
 
 const { encryptPassword } = require("../middleware/midd");
 const { Signup, Login } = require("../controller/auth");
@@ -18,9 +18,6 @@ const userSchema = require("../model/user");
 const multer = require("multer");
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const cloudinary = require("../controller/cloudinary"); // Cloudinary configuration file
- 
-
-
 
 const { Schema } = mongoose;
 const storage = new CloudinaryStorage({
@@ -47,7 +44,7 @@ router.get("/", async (req, res) => {
 
 router.post("/task", async (req, res) => {
   try {
-    console.log(req.body)
+    console.log(req.body);
     const result = await taskRepository.saveData(req.body);
     res.status(201).json({ success: true, data: result });
   } catch (error) {
@@ -65,6 +62,7 @@ router.delete(
 
   roleCheck(["admin"]),
   async (req, res) => {
+    console.log("delete called");
     const result = await deleteData(req.body.id);
     res.json({ message: "Data deleted", data: result });
   }
@@ -130,7 +128,9 @@ router.post("/:id/imgupload", upload.single("image"), async (req, res) => {
     });
   } catch (error) {
     console.error("Error uploading image:", error);
-    res.status(500).json({ message: "Failed to upload image", error: error.message });
+    res
+      .status(500)
+      .json({ message: "Failed to upload image", error: error.message });
   }
 });
 
@@ -138,7 +138,4 @@ module.exports = router;
 
 //veryfy middlewere works bit late that neds to be improved fro production
 
-
-//currently url is storing in data base needs to work in backend for storing cloudinary url and frontend profile page section needs to be worked on 
-
-
+//currently url is storing in data base needs to work in backend for storing cloudinary url and frontend profile page section needs to be worked on
