@@ -45,10 +45,8 @@ router.put("/edit", async (req, res) => {
       return res.status(404).json({ error: "Task not found" });
     }
 
-    // Build updateFields
     let updateFields = {};
 
-    // Handle if `update` is a string (task text)
     if (typeof update === "string") {
       updateFields.task = update;
     }
