@@ -15,7 +15,7 @@ router.get("/", async (req, res) => {
 const OFFICE_LOCATION = {
   latitude: 22.05911163145492,
   longitude: 78.92991505636398,
-}; // Example (Delhi)
+};
 const isWithinRange = (userLat, userLng) => {
   const distance = Math.sqrt(
     Math.pow(userLat - OFFICE_LOCATION.latitude, 2) +
@@ -48,7 +48,8 @@ router.post("/attendance", async (req, res) => {
     console.log(currentHour, "hour");
 
     // Set attendance status based on time
-    const attendanceStatus = currentHour >= 10 ? "Half Day" : "Present";
+    const attendanceStatus = currentHour >= 14 ? "Half Day" : "Present";
+
     console.log(attendanceStatus, "status");
     // Save attendance in database
     const attendance = new Attendance({
@@ -90,6 +91,3 @@ router.get("/:userId", async (req, res) => {
 });
 
 module.exports = router;
-
-//this apis work is done just need to implement some condition if someone comes after
-// it should show there a half day attandence
