@@ -7,7 +7,7 @@ const clientRepository = require("../repository/client");
 const clientSchema = require("../model/clients");
 const multer = require("multer");
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
-const cloudinary = require("../controller/cloudinary"); // Cloudinary configuration file
+const cloudinary = require("../controller/cloudinary");
 
 const mongoose = require("mongoose");
 
@@ -15,7 +15,7 @@ const { Schema } = mongoose;
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
-    folder: "profile_pictures", // Folder where images will be stored in Cloudinary
+    folder: "profile_pictures",
     allowed_formats: ["jpg", "png", "jpeg"],
   },
 });
@@ -148,7 +148,7 @@ router.put("/:id/leads", async (req, res) => {
     res.status(200).json({
       success: true,
       message: "Client updated successfully",
-      data: result, // Send back updated data
+      data: result,
     });
   } catch (error) {
     console.error("Error updating client:", error);
@@ -160,8 +160,9 @@ router.put("/:id/leads", async (req, res) => {
 });
 
 router.put("/:id/update-status", async (req, res) => {
+  console.log(req.body, "id");
   const { id } = req.params;
-  const { itemIndex, isCompleted, type } = req.body; // Data from the request body
+  const { itemIndex, isCompleted, type } = req.body;
 
   // Validate ID format
   if (!mongoose.Types.ObjectId.isValid(id)) {
