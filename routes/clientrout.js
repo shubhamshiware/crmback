@@ -8,7 +8,6 @@ const clientSchema = require("../model/clients");
 const multer = require("multer");
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const cloudinary = require("../controller/cloudinary"); // Cloudinary configuration file
- 
 
 const mongoose = require("mongoose");
 
@@ -23,7 +22,7 @@ const storage = new CloudinaryStorage({
 const upload = multer({ storage });
 // Route to save a client
 router.post("/clients", async (req, res) => {
-  console.log(req.body, "testing ");
+  console.log(req.body, "salsedta");
   try {
     const result = await clientRepository.saveData(req.body);
     res.status(201).json({ success: true, data: result });
