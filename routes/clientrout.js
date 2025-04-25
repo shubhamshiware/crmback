@@ -130,7 +130,7 @@ router.put("/:id/leads", async (req, res) => {
       }),
       ...(followers !== undefined && { followers: Number(followers) }),
       ...(views !== undefined && { views: Number(views) }),
-      ...(ctr !== undefined && { views: Number(ctr) }),
+      ...(ctr !== undefined && { ctr: Number(ctr) }), // <-- Corrected line
     };
 
     const result = await clientSchema.findByIdAndUpdate(
@@ -161,7 +161,6 @@ router.put("/:id/leads", async (req, res) => {
 });
 
 router.put("/:id/update-status", async (req, res) => {
-  console.log(req.body, "id");
   const { id } = req.params;
   const { itemIndex, isCompleted, type } = req.body;
 
