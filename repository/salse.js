@@ -16,6 +16,7 @@ const getDataByUserName = (username) => {
 };
 
 const deleteData = (id) => {
+  console.log(req.body, "idd");
   return salseSchema.deleteOne({ _id: id });
 };
 const editData = async ({ id, field, value }) => {
