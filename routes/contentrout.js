@@ -35,7 +35,6 @@ router.put("/edit", async (req, res) => {
     console.log(completed, "fild");
     console.log(_id, "idd");
 
-    // Validate _id
     if (!_id) {
       return res.status(400).json({ error: "Missing _id field" });
     }
@@ -51,7 +50,6 @@ router.put("/edit", async (req, res) => {
       updateFields.task = update;
     }
 
-    // If `update` is an object, merge all fields into updateFields
     if (typeof update === "object" && update !== null) {
       updateFields = { ...updateFields, ...update };
     }
@@ -61,7 +59,7 @@ router.put("/edit", async (req, res) => {
       updateFields.completed = completed;
     }
 
-    // Update points logic
+    //  points logic
     if (typeof update?.points === "number") {
       updateFields.points =
         (task.points || 0) + (completed ? update.points : -update.points);
@@ -85,7 +83,7 @@ router.get("/users/:userId", async (req, res) => {
   console.log(req.body, "incomming body ");
   try {
     const { userId } = req.params;
-    const tasks = await Content.find({ userId }); // Fetch only tasks for this user
+    const tasks = await Content.find({ userId });
 
     res.json(tasks);
   } catch (error) {
