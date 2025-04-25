@@ -11,6 +11,8 @@ const clientSchema = new mongoose.Schema({
   followers: { type: Number },
   views: { type: Number },
   profileImage: { type: String, default: "" },
+  ctr: { type: Number },
+  // Impressions: { type: Number },
   videos: [
     {
       videoNumber: { type: Number },
@@ -45,5 +47,3 @@ clientSchema.pre("save", function (next) {
 });
 
 module.exports = mongoose.model("Client", clientSchema);
-
-//here we can update video and design by changing numbers

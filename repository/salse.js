@@ -44,7 +44,6 @@ const editData = async ({ id, field, value }) => {
       updatedAt: new Date(),
     };
 
-    // Find the document by ID and update the specified field
     const result = await salseSchema.findByIdAndUpdate(id, update, {
       new: true,
     });
@@ -57,7 +56,7 @@ const editData = async ({ id, field, value }) => {
     return result;
   } catch (error) {
     console.error("Error updating sales data:", error);
-    throw error; // Rethrow the error to handle it in the calling function
+    throw error;
   }
 };
 
