@@ -121,7 +121,7 @@ router.put("/edit", async (req, res) => {
 router.put("/:id/leads", async (req, res) => {
   console.log(req.body, "leads");
   try {
-    const { leadsgenerated, followers, views } = req.body;
+    const { leadsgenerated, followers, views, ctr } = req.body;
 
     // Ensure all values are converted to numbers (if applicable)
     const updatedData = {
@@ -130,6 +130,7 @@ router.put("/:id/leads", async (req, res) => {
       }),
       ...(followers !== undefined && { followers: Number(followers) }),
       ...(views !== undefined && { views: Number(views) }),
+      ...(ctr !== undefined && { views: Number(ctr) }),
     };
 
     const result = await clientSchema.findByIdAndUpdate(
