@@ -29,6 +29,7 @@ router.get("/", async (req, res) => {
 });
 
 router.put("/edit", async (req, res) => {
+  console.log(req.body, "incomming body");
   try {
     const { _id, update, completed } = req.body;
 
