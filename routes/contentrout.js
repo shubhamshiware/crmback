@@ -4,6 +4,7 @@ const contentRout = require("../repository/content");
 const repo = require("../model/content");
 
 router.post("/content", async (req, res) => {
+  console.log(req.body, "incomming");
   try {
     const { userId, update } = req.body;
     if (!userId)
@@ -20,6 +21,7 @@ router.post("/content", async (req, res) => {
 
 // Route to get all clients
 router.get("/", async (req, res) => {
+  console.log(req.body, "incomming body");
   try {
     const clients = await contentRout.getData();
     res.status(200).json({ success: true, data: clients });
@@ -29,7 +31,7 @@ router.get("/", async (req, res) => {
 });
 
 router.put("/edit", async (req, res) => {
-  console.log(req.body, "incomming body");
+  // console.log(req.body, "incomming body");
   try {
     const { _id, update, completed } = req.body;
 
