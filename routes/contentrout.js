@@ -21,7 +21,7 @@ router.post("/content", async (req, res) => {
 
 // Route to get all clients
 router.get("/", async (req, res) => {
-  console.log(req.body, "incomming body");
+  // console.log(req.body, "incomming body");
   try {
     const clients = await contentRout.getData();
     res.status(200).json({ success: true, data: clients });
