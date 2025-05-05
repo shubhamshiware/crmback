@@ -53,6 +53,7 @@ router.post("/task", async (req, res) => {
 });
 
 router.put("/edit", async (req, res) => {
+  console.log(req.body, "edit user");
   const result = await editData(req.body);
   res.json({ message: "Data updated", data: result });
 });
@@ -134,7 +135,3 @@ router.post("/:id/imgupload", upload.single("image"), async (req, res) => {
 });
 
 module.exports = router;
-
-//veryfy middlewere works bit late that neds to be improved fro production
-
-//currently url is storing in data base needs to work in backend for storing cloudinary url and frontend profile page section needs to be worked on
