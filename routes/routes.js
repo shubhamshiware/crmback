@@ -43,8 +43,8 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/task", async (req, res) => {
+  console.log(req.body, "task incoming ");
   try {
-    console.log(req.body);
     const result = await taskRepository.saveData(req.body);
     res.status(201).json({ success: true, data: result });
   } catch (error) {
