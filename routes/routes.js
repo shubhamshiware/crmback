@@ -43,7 +43,6 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/task", async (req, res) => {
-  // console.log(req.body, "task incoming ");
   try {
     const result = await taskRepository.saveData(req.body);
     res.status(201).json({ success: true, data: result });
@@ -52,8 +51,7 @@ router.post("/task", async (req, res) => {
   }
 });
 
-router.put("/edituser", async (req, res) => {
-  console.log(req.body, "user tring to edit ");
+router.put("/edit", async (req, res) => {
   const result = await editData(req.body);
   res.json({ message: "Data updated", data: result });
 });
