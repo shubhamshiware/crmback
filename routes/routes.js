@@ -57,28 +57,6 @@ router.put("/edit", async (req, res) => {
   res.json({ message: "Data updated", data: result });
 });
 
-router.put("/edituser", async (req, res) => {
-  console.log(req.body, "edit userdetails");
-  try {
-    const { _id, ...updates } = req.body;
-
-    if (!_id || !mongoose.Types.ObjectId.isValid(_id)) {
-      return res.status(400).json({ message: "Invalid or missing _id" });
-    }
-
-    const result = await User.findByIdAndUpdate(_id, updates, { new: true });
-
-    if (!result) {
-      return res.status(404).json({ message: "User not found" });
-    }
-
-    res.json({ message: "Data updated", data: result });
-  } catch (error) {
-    console.error("Error updating user:", error);
-    res.status(500).json({ message: "Internal Server Error" });
-  }
-});
-
 router.delete(
   "/delete",
 
@@ -102,6 +80,28 @@ router.get(
     }
   }
 );
+
+router.put("/edituser", async (req, res) => {
+  console.log(req.body, "edit userdetails");
+  try {
+    const { _id, ...updates } = req.body;
+
+    if (!_id || !mongoose.Types.ObjectId.isValid(_id)) {
+      return res.status(400).json({ message: "Invalid or missing _id" });
+    }
+
+    const result = await User.findByIdAndUpdate(_id, updates, { new: true });
+
+    if (!result) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.json({ message: "Data updated", data: result });
+  } catch (error) {
+    console.error("Error updating user:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
 
 router.get("/user/:id", async (req, res) => {
   try {
