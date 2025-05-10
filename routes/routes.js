@@ -52,6 +52,13 @@ router.post("/task", async (req, res) => {
 });
 
 router.put("/edit", async (req, res) => {
+  console.log(req.body, "edit request comming ");
+  const result = await editData(req.body);
+  res.json({ message: "Data updated", data: result });
+});
+
+router.put("/edituser", async (req, res) => {
+  console.log(req.body, "request comming ");
   const result = await editData(req.body);
   res.json({ message: "Data updated", data: result });
 });
