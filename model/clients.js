@@ -5,14 +5,14 @@ const clientSchema = new mongoose.Schema({
   discription: { type: String },
   Address: { type: String },
   package: { type: Number },
-  email: { type: String, required: true, match: /.+\@.+\..+/ }, // Valid email
+  email: { type: String, required: true, match: /.+\@.+\..+/ },
   phone: { type: String, required: true },
   leadsgenerated: { type: Number },
   followers: { type: Number },
   views: { type: Number },
   profileImage: { type: String, default: "" },
   ctr: { type: Number },
-  // Impressions: { type: Number },
+
   videos: [
     {
       videoNumber: { type: Number },

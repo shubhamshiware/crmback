@@ -25,7 +25,6 @@ router.get("/tasks", async (req, res) => {
 });
 
 router.delete("/delete", async (req, res) => {
-  // console.log("Request body:", req.body);
   try {
     const { id } = req.body;
     if (!id) {
@@ -83,7 +82,6 @@ router.put("/edit", roleCheck(["author"]), async (req, res) => {
 });
 
 router.get("/:id", roleCheck(["author"]), async (req, res) => {
-  // console.log("param", req.body);
   try {
     const { id } = req.params;
     const client = await clientRepository.getDataById(id);

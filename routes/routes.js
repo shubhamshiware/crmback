@@ -90,7 +90,9 @@ router.put("/edituser", async (req, res) => {
       return res.status(400).json({ message: "Invalid or missing _id" });
     }
 
-    const result = await User.findByIdAndUpdate(_id, updates, { new: true });
+    const result = await userSchema.findByIdAndUpdate(_id, updates, {
+      new: true,
+    });
 
     if (!result) {
       return res.status(404).json({ message: "User not found" });
