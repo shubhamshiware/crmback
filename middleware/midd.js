@@ -28,6 +28,7 @@ const encryptPassword = (req, res, next) => {
 };
 
 const verifytoken = (req, res, next) => {
+  console.log(req.body, "token");
   const token = req.headers["authorization"]?.split(" ")[1]; // Extract the token from the "Authorization" header
 
   if (token) {
