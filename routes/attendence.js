@@ -29,7 +29,7 @@ router.post("/attendance", async (req, res) => {
     console.log(req.body, "request body");
 
     const { userId, latitude, longitude } = req.body;
-    //   console.log(userId, latitude, longitude, "missing data");
+    console.log(userId, latitude, longitude, "missing data");
 
     if (!userId || !latitude || !longitude) {
       return res.status(400).json({ message: "Missing required fields" });
