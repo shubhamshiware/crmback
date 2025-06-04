@@ -23,7 +23,7 @@ const { Schema } = mongoose;
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
-    folder: "profile_pictures", // Folder where images will be stored in Cloudinary
+    folder: "profile_pictures",
     allowed_formats: ["jpg", "png", "jpeg"],
   },
 });
@@ -38,6 +38,7 @@ router.post(
 );
 
 router.get("/", async (req, res) => {
+  console.log(req.body, "incoming request");
   const data1 = await getData();
   res.json({ data: data1 });
 });
