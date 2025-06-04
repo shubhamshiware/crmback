@@ -2,6 +2,10 @@ const Chat = require("../model/chat");
 
 const accessChat = async (req, res) => {
   console.log(req.body, "incoming message");
+  if (!userId1 || !userId2) {
+    return res.status(400).json({ message: "Missing user IDs" });
+  }
+
   const { userId1, userId2 } = req.body;
 
   try {

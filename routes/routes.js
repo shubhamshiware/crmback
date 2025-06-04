@@ -1,5 +1,5 @@
 const express = require("express");
-// const { verifytoken } = require("../middleware/midd");
+const { verifytoken } = require("../middleware/midd");
 const mongoose = require("mongoose");
 const router = express.Router();
 const { roleCheck } = require("../middleware/middone");
