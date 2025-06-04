@@ -38,12 +38,12 @@ router.post(
 );
 
 router.get("/", async (req, res) => {
-  console.log(req.body, "incoming request");
   const data1 = await getData();
   res.json({ data: data1 });
 });
 
 router.post("/task", async (req, res) => {
+  console.log(req.body, "tasks");
   try {
     const result = await taskRepository.saveData(req.body);
     res.status(201).json({ success: true, data: result });
