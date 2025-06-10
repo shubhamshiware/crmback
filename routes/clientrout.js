@@ -59,6 +59,7 @@ router.delete("/delete", async (req, res) => {
 });
 
 router.put("/edit", async (req, res) => {
+  console.log("incomming ", req.body);
   try {
     const result = await clientRepository.editData(req.body);
 
