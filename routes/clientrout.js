@@ -22,7 +22,6 @@ const storage = new CloudinaryStorage({
 const upload = multer({ storage });
 // Route to save a client
 router.post("/clients", async (req, res) => {
-  console.log(req.body, "salsedta");
   try {
     const result = await clientRepository.saveData(req.body);
     res.status(201).json({ success: true, data: result });
@@ -59,7 +58,6 @@ router.delete("/delete", async (req, res) => {
 });
 
 router.put("/edit", async (req, res) => {
-  console.log("incomming ", req.body);
   try {
     const result = await clientRepository.editData(req.body);
 
