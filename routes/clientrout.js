@@ -118,7 +118,6 @@ router.put("/edit", async (req, res) => {
 });
 
 router.put("/:id/leads", async (req, res) => {
-  console.log(req.body, "leads");
   try {
     const { leadsgenerated, followers, views, ctr } = req.body;
 
@@ -262,7 +261,6 @@ router.put("/:id/update-status", async (req, res) => {
 });
 
 router.put("/:id/update-package", async (req, res) => {
-  console.log(req.body, "testing request ");
   try {
     const { newAmount } = req.body;
     if (newAmount < 0) {
