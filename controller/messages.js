@@ -2,9 +2,9 @@ const Message = require("../model/message");
 const Chat = require("../model/chat");
 
 const sendMessage = async (req, res) => {
+  console.log("content", content);
   const { senderId, content, chatId } = req.body;
 
-  console.log("content", content);
   try {
     const newMessage = await Message.create({
       sender: senderId,
@@ -25,9 +25,8 @@ const sendMessage = async (req, res) => {
 };
 
 const getMessages = async (req, res) => {
-  console.log(req.body, "messagesrout getmessage");
   const { chatId } = req.params;
-
+  console.log(req.body, "messagesrout getmessage");
   try {
     const messages = await Message.find({ chat: chatId })
       .populate("sender", "name email")
