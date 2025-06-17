@@ -2,9 +2,9 @@ const Message = require("../model/message");
 const Chat = require("../model/chat");
 
 const sendMessage = async (req, res) => {
-  console.log(req.body, "message rout ");
   const { senderId, content, chatId } = req.body;
 
+  console.log("content", content);
   try {
     const newMessage = await Message.create({
       sender: senderId,
@@ -12,9 +12,9 @@ const sendMessage = async (req, res) => {
       chat: chatId,
     });
 
-    await Chat.findByIdAndUpdate(chatId, { latestMessage: newMessage._id });
+    await Chat.findByIdAndUpdate(chatId, { latestMessage: newMessage.id });
 
-    const fullMessage = await Message.findById(newMessage._id)
+    const fullMessage = await Message.findById(newMessage.id)
       .populate("sender", "name email")
       .populate("chat");
 
