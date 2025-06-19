@@ -14,6 +14,20 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.post("/postdata", async (req, res) => {
+  try {
+    const exists = await Sales.findOne();
+    if (exists)
+      return res.status(400).json({ message: "Sales record already exists" });
+
+    const sales = new Sales(); // defaults to 12 zeroes
+    await sales.save();
+    res.json({ message: "Sales record created", data: sales });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 // PUT update monthly sales
 router.put("/update", async (req, res) => {
   console.log("update", req.body);
