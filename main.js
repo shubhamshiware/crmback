@@ -15,8 +15,9 @@ const taskRout = require("./routes/taskrout");
 const contentRout = require("./routes/contentrout");
 const salseRout = require("./routes/salserout");
 const attendenceRout = require("./routes/attendence");
-// const chatRout = require("./routes/chatsrout");
+const chatRout = require("./routes/chatsrout");
 // const messageRout = require("./routes/messagerout");
+const chartRout = require("./routes/chartrout");
 const { Server } = require("socket.io");
 
 const mongoUri =
@@ -58,8 +59,8 @@ app.use("/task", taskRout);
 app.use("/content", contentRout);
 app.use("/salse", salseRout);
 app.use("/attendence", attendenceRout);
-// app.use("/chat", chatRout);
-// app.use("/message", messageRout);
+app.use("/chat", chatRout);
+app.use("/Cart", chartRout);
 
 // MongoDB Connection
 const dbConnect = () => {
