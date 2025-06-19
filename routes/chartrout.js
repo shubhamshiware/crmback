@@ -15,6 +15,7 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/postdata", async (req, res) => {
+  console.log("posting data", req.body);
   try {
     const exists = await Sales.findOne();
     if (exists)
@@ -31,7 +32,7 @@ router.post("/postdata", async (req, res) => {
 // PUT update monthly sales
 router.put("/update", async (req, res) => {
   console.log("update", req.body);
-  const { monthIndex, value } = req.body; // monthIndex = 0 (Jan) to 11 (Dec)
+  const { monthIndex, value } = req.body;
   try {
     const sales = await Sales.findOne();
     if (!sales)
