@@ -60,7 +60,7 @@ app.use("/content", contentRout);
 app.use("/salse", salseRout);
 app.use("/attendence", attendenceRout);
 app.use("/chat", chatRout);
-app.use("/Cart", chartRout);
+app.use("/Chart", chartRout);
 
 // MongoDB Connection
 const dbConnect = () => {
