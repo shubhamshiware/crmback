@@ -4,7 +4,7 @@ const Sales = require("../model/chart");
 
 // GET sales data
 router.get("/", async (req, res) => {
-  console.log("chart incoming", req.body);
+  //   console.log("chart incoming", req.body);
   try {
     const data = await Sales.findOne();
     if (!data) return res.status(404).json({ message: "No sales data found" });
