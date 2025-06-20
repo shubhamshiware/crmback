@@ -1,3 +1,4 @@
+const chat = require("../model/chat");
 const Chat = require("../models/Chat");
 const User = require("../models/User");
 
@@ -44,6 +45,24 @@ const accessChat = async (req, res) => {
   }
 };
 
+const fetchChat = async (req, res) => {
+  try {
+    const chaat = await chat
+      .find({ Users: { $in: [req.user._id] } })
+      .populate("chat", "-password")
+      .populate("groupchat", "-password")
+      .populate("latestmesaage")
+      .sort("updateAt:-1");
+
+    res.status(200).json(chats);
+  } catch (err) {
+    console.log("some error ocuured while initialising the chat ", err);
+    res.status(500).json({
+      error: "error occured ",
+    });
+  }
+};
+
 // Create a new group chat
 const createGroupChat = async (req, res) => {
   const { name, users } = req.body;
@@ -54,7 +73,7 @@ const createGroupChat = async (req, res) => {
       .json({ message: "Please provide group name and users" });
   }
 
-  const parsedUsers = JSON.parse(users); // because frontend usually sends JSON string
+  const parsedUsers = JSON.parse(users);
 
   if (parsedUsers.length < 2) {
     return res
@@ -85,6 +104,21 @@ const createGroupChat = async (req, res) => {
 
 module.exports = {
   accessChat,
-
+  fetchChat,
   createGroupChat,
 };
+
+// const fetchChats = async (req, res) => {
+//     try {
+//       const chats = await Chat.find({ users: { $in: [req.user._id] } })
+//         .populate("users", "-password")
+//         .populate("groupAdmin", "-password")
+//         .populate("latestMessage")
+//         .sort({ updatedAt: -1 });
+
+//       res.status(200).json(chats);
+//     } catch (error) {
+//       console.error("Error fetching chats:", error);
+//       res.status(500).send("Server error");
+//     }
+//   };
