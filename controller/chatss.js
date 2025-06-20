@@ -48,7 +48,7 @@ const accessChat = async (req, res) => {
 const fetchChat = async (req, res) => {
   try {
     const chaat = await chat
-      .find({ Users: { $in: [req.user._id] } })
+      .find({ User: { $in: [req.User._id] } })
       .populate("chat", "-password")
       .populate("groupchat", "-password")
       .populate("latestmesaage")
@@ -81,7 +81,7 @@ const createGroupChat = async (req, res) => {
       .json({ message: "At least 2 users required to form a group chat" });
   }
 
-  parsedUsers.push(req.user); // include the creator
+  parsedUsers.push(req.User); // include the creator
 
   try {
     const groupChat = await Chat.create({
