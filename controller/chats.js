@@ -1,7 +1,6 @@
 const Chat = require("../model/chat");
 
 const accessChat = async (req, res) => {
-  console.log(req.body, "incoming message");
   if (!userId1 || !userId2) {
     return res.status(400).json({ message: "Missing user IDs" });
   }
@@ -28,6 +27,7 @@ const accessChat = async (req, res) => {
 };
 
 const getAllChats = async (req, res) => {
+  console.log(req.body, "incomming request");
   try {
     const chats = await Chat.find().populate("users", "-password");
     res.json(chats);
