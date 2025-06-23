@@ -1,6 +1,7 @@
 const Chat = require("../model/chat");
 
 const accessChat = async (req, res) => {
+  cosnoel.log(req.body, "aa");
   if (!userId1 || !userId2) {
     return res.status(400).json({ message: "Missing user IDs" });
   }
