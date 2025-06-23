@@ -37,7 +37,27 @@ const getAllChats = async (req, res) => {
   }
 };
 
+const groupchats = async (req, res) => {
+  console.log("request from frontend", req.body);
+  try {
+    const grpChats = await Chat.find().populate("group", "-password");
+    const user = chats.id.find().populate("user", "password");
+    res.json(grpChats);
+  } catch (error) {
+    res.status(505).json({
+      message: error.message,
+    });
+  }
+};
+
+const access = async (req, res) => {
+  if (!useroId1 || !userId2) {
+    return res.status(500).json({});
+  }
+};
+
 module.exports = {
   accessChat,
   getAllChats,
+  groupchats,
 };
