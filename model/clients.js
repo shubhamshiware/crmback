@@ -35,14 +35,32 @@ const clientSchema = new mongoose.Schema({
   addedAt: { type: Date, default: Date.now },
 });
 
-// Ensure exactly four videos and designs are present
+// // Ensure exactly four videos and designs are present
+// clientSchema.pre("save", function (next) {
+//   if (this.videos.length !== 4) {
+//     return next(new Error("There must be exactly 4 videos."));
+//   }
+//   if (this.designs.length !== 4) {
+//     return next(new Error("There must be exactly 4 designs."));
+//   }
+//   next();
+// });
+
 clientSchema.pre("save", function (next) {
-  if (this.videos.length !== 4) {
-    return next(new Error("There must be exactly 4 videos."));
+  // Example: Add up to 4 videos only if package > 2
+  if (this.package > 2 && this.videos.length < 4) {
+    for (let i = this.videos.length + 1; i <= 4; i++) {
+      this.videos.push({ videoNumber: i });
+    }
   }
-  if (this.designs.length !== 4) {
-    return next(new Error("There must be exactly 4 designs."));
+
+  // Example: Add up to 4 designs only if package > 1
+  if (this.package > 1 && this.designs.length < 4) {
+    for (let i = this.designs.length + 1; i <= 4; i++) {
+      this.designs.push({ designNumber: i });
+    }
   }
+
   next();
 });
 
