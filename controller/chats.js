@@ -38,5 +38,4 @@ const getAllChats = async (req, res) => {
 module.exports = {
   accessChat,
   getAllChats,
-  groupchats,
 };
