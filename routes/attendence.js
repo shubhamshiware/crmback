@@ -3,7 +3,7 @@ const Attendance = require("../model/attendence");
 const express = require("express");
 // const { verifytoken } = require("../middleware/midd");
 const mongoose = require("mongoose");
-// const authMiddleware= require("../middleware/authmiddleware")
+
 const router = express.Router();
 const { getData } = require("../repository/attendence");
 
@@ -25,6 +25,7 @@ const isWithinRange = (userLat, userLng) => {
 };
 
 router.post("/attendance", async (req, res) => {
+  console.log("attandence", req.body);
   try {
     const { userId, latitude, longitude } = req.body;
     console.log(userId, latitude, longitude, "missing data");
