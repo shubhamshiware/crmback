@@ -26,8 +26,6 @@ const isWithinRange = (userLat, userLng) => {
 
 router.post("/attendance", async (req, res) => {
   try {
-    console.log(req.body, "request body");
-
     const { userId, latitude, longitude } = req.body;
     console.log(userId, latitude, longitude, "missing data");
 

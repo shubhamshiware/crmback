@@ -66,3 +66,5 @@ dbConnect()
   .catch((err) => {
     console.error("❌ MongoDB connection error:", err);
   });
+
+//C:\Users\shubham shiware\Downloads\node\fullstackproject\backend\backauth\main.js
