@@ -4,6 +4,7 @@ const Sales = require("../model/chart");
 
 // GET sales data
 router.get("/", async (req, res) => {
+  console.log(req.body, "request incoming ");
   try {
     const data = await Sales.findOne();
     if (!data) return res.status(404).json({ message: "No sales data found" });
@@ -14,6 +15,7 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/postdata", async (req, res) => {
+  console.log(req.body, "request incoming ");
   try {
     const exists = await Sales.findOne();
     if (exists)
@@ -29,6 +31,7 @@ router.post("/postdata", async (req, res) => {
 
 // PUT update monthly sales
 router.put("/update", async (req, res) => {
+  console.log(req.body, "request incoming ");
   const { monthIndex, value } = req.body;
   try {
     const sales = await Sales.findOne();
