@@ -15,7 +15,7 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/postdata", async (req, res) => {
-  console.log(req.body, "request incoming ");
+  // console.log(req.body, "request incoming ");
   try {
     const exists = await Sales.findOne();
     if (exists)
