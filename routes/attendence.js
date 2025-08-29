@@ -11,10 +11,10 @@ router.get("/", async (req, res) => {
   const data1 = await getData();
   res.json({ data: data1 });
 });
-
+//22.05312713803022
 const OFFICE_LOCATION = {
-  latitude: 22.05911163145492,
-  longitude: 78.92991505636398,
+  latitude: 22.05312713803022,
+  longitude: 78.93309051495012,
 };
 const isWithinRange = (userLat, userLng) => {
   const distance = Math.sqrt(
